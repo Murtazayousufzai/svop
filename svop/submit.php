@@ -2,7 +2,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Your email address
-    $to = "hadik1073@gmail.com"; // <-- Replace this with your real email
+    $to = "murtazayousufzai833@gmail.com"; // <-- Replace this with your real email
 
     // Email subject
     $subject = "New Recruitment Application - Students Voice of Patient Safety";
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message .= "Preferred Working Department: $selectedDepartment\n";
 
     // Email headers
-    $headers = "From: noreply@svop-9vlk.vercel.app\r\n";
+    $headers = "From: noreply@svop.netlify.app\r\n";
     $headers .= "Reply-To: $email\r\n";
 
     // Send the email

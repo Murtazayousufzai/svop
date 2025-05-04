@@ -113,15 +113,36 @@ document.addEventListener('DOMContentLoaded', function() {
         'Media & Marketing': `
             <div class="department-questions">
                 <div class="question-group">
-                    <label for="designExperience">Describe your experience with graphic design (tools used, projects, etc.)</label>
+                    <label for="designExperience">- What makes you interested in the Media and Marketing department?</label>
                     <textarea id="designExperience" name="designExperience" required></textarea>
                 </div>
                 <div class="question-group">
-                    <label for="socialMediaExperience">What social media platforms are you experienced with and how would you use them for our society?</label>
+                    <label for="socialMediaExperience">- Rate your motivation to work from 1-10</label>
                     <textarea id="socialMediaExperience" name="socialMediaExperience" required></textarea>
                 </div>
                 <div class="question-group">
-                    <label for="contentCreation">Share your approach to creating engaging content for medical students</label>
+                    <label for="contentCreation">- Do you have prior experience in canva designing/video editing/ handling social media/videography? (Give boxes so students can tick their relevant expertise)</label>
+                    <textarea id="contentCreation" name="contentCreation" required></textarea>
+                </div>
+              
+                <div class="question-group">
+                    <label for="contentCreation">Upload a sample (optional)</label>
+                    <input type="file" id="presentationSample" name="presentationSample">
+                </div>
+                <div class="question-group">
+                    <label for="contentCreation">- ⁠List down any other organisations you’ve served in the media/marketing department for or are currently a part of.</label>
+                    <textarea id="contentCreation" name="contentCreation" required></textarea>
+                </div>
+                <div class="question-group">
+                    <label for="contentCreation">- ⁠Will you be able to attend most if not all of our events and workshops?</label>
+                    <textarea id="contentCreation" name="contentCreation" required></textarea>
+                </div>
+                <div class="question-group">
+                    <label for="contentCreation">- ⁠Will you be able to attend conferences outside of university?</label>
+                    <textarea id="contentCreation" name="contentCreation" required></textarea>
+                </div>
+                <div class="question-group">
+                    <label for="contentCreation">- ⁠Are you familiar with mobile cameras? (preferably a good camera iphone )</label>
                     <textarea id="contentCreation" name="contentCreation" required></textarea>
                 </div>
             </div>
