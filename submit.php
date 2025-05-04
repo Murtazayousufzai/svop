@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message .= "Preferred Working Department: $selectedDepartment\n";
 
     // Email headers
-    $headers = "From: noreply@svop.netlify.app\r\n";
+    $headers = "From: noreply@svop.netlify.app/svop\r\n";
     $headers .= "Reply-To: $email\r\n";
 
     // Send the email
