@@ -14,25 +14,29 @@
             <h1>Students Voice of Patient Safety</h1>
             <h2>Join Our Team</h2>
         </header>
-        <form target="_blank" action="https://formsubmit.co/murtazayousufzai833@gmail.com" method="POST">
-
-        </form>
         <form id="recruitmentForm" action="https://formsubmit.co/murtazayousufzai833@gmail.com" method="POST">
+            <!-- FormSubmit.co configuration -->
+            <input type="hidden" name="_subject" value="New SVPS Recruitment Application">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="selectedDepartment" id="selectedDepartmentHidden">
+            
             <!-- Page 1 - Personal Information -->
             <div class="form-page active" id="page1">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" required>
+                    <input type="text" id="fullName" name="Full Name" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="Email" required>
                 </div>
 
                 <div class="form-group">
                     <label for="Department">Department</label>
-                    <select id="Department" name="Department" required>
+                    <select id="Department" name="Academic Department" required>
                         <option value="" disabled selected>Select your Department</option>
                         <option value="MBBS">MBBS</option>
                         <option value="BDS">BDS</option>
@@ -42,13 +46,13 @@
 
                 <div class="form-group">
                     <label for="batch">Academic Batch</label>
-                    <input type="text" id="batch" name="batch" placeholder="Enter your batch (e.g., 2022-2026)" required>
+                    <input type="text" id="batch" name="Academic Batch" placeholder="Enter your batch (e.g., 2022-2026)" required>
                     <small>You can enter your full batch period or just the starting year</small>
                 </div>
 
                 <div class="form-group">
                     <label for="phone">WhatsApp Number</label>
-                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}" required>
+                    <input type="tel" id="phone" name="WhatsApp Number" pattern="[0-9]{10,15}" required>
                     <small>Format: 1234567890 (no spaces or special characters)</small>
                 </div>
 
@@ -61,29 +65,29 @@
             <div class="form-page" id="page2">
                 <div class="form-group">
                     <h3>Why would you like to join the Students Voice of Patient Safety?</h3>
-                    <textarea id="joinReason" name="joinReason" required></textarea>
+                    <textarea id="joinReason" name="Reason for Joining" required></textarea>
                 </div>
                 
                 <div class="form-group">
                     <h3>Which department would you like to join to help us run the society smoothly and make a real difference in patient safety?</h3>
                     <div class="radio-group">
                         <label class="radio-option">
-                            <input type="radio" name="department" value="Operations" required>
+                            <input type="radio" name="SVPS Department" value="Operations" required>
                             <span class="radio-custom"></span>
                             Operations
                         </label>
                         <label class="radio-option">
-                            <input type="radio" name="department" value="Research">
+                            <input type="radio" name="SVPS Department" value="Research">
                             <span class="radio-custom"></span>
                             Research
                         </label>
                         <label class="radio-option">
-                            <input type="radio" name="department" value="Academics">
+                            <input type="radio" name="SVPS Department" value="Academics">
                             <span class="radio-custom"></span>
                             Academics
                         </label>
                         <label class="radio-option">
-                            <input type="radio" name="department" value="Media & Marketing">
+                            <input type="radio" name="SVPS Department" value="Media & Marketing">
                             <span class="radio-custom"></span>
                             Media & Marketing
                         </label>
@@ -131,6 +135,209 @@
         </form>
     </div>
   
-    <script src="./scriptt.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get elements
+        const form = document.getElementById('recruitmentForm');
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const confirmationPage = document.getElementById('confirmationPage');
+        const nextBtn = document.querySelector('.next-btn');
+        const backBtn = document.querySelector('.back-btn');
+        const departmentRadios = document.querySelectorAll('input[name="SVPS Department"]');
+        const departmentQuestions = document.getElementById('departmentQuestions');
+        const selectedDepartmentHidden = document.getElementById('selectedDepartmentHidden');
+        const confirmedDepartment = document.getElementById('confirmedDepartment');
+        
+        // Department-specific questions
+        const departmentQuestionsData = {
+            'Operations': [
+                { 
+                    id: 'opsQuestion1', 
+                    label: 'What skills do you possess that would make you an asset to the Operations team?',
+                    name: 'Operations Skills'
+                },
+                { 
+                    id: 'opsQuestion2', 
+                    label: 'Describe your experience in organizing events or managing projects.',
+                    name: 'Operations Experience'
+                }
+            ],
+            'Research': [
+                { 
+                    id: 'researchQuestion1', 
+                    label: 'Do you have any prior research experience? If yes, please describe.',
+                    name: 'Research Experience'
+                },
+                { 
+                    id: 'researchQuestion2', 
+                    label: 'What patient safety research topics are you most interested in?',
+                    name: 'Research Interests'
+                }
+            ],
+            'Academics': [
+                { 
+                    id: 'academicsQuestion1', 
+                    label: 'What educational strategies would you propose to enhance awareness of patient safety?',
+                    name: 'Academic Strategies'
+                },
+                { 
+                    id: 'academicsQuestion2', 
+                    label: 'Have you been involved in academic planning or teaching before? Please describe.',
+                    name: 'Academic Experience'
+                }
+            ],
+            'Media & Marketing': [
+                { 
+                    id: 'mediaQuestion1', 
+                    label: 'Do you have experience with graphic design, video editing, or social media management?',
+                    name: 'Media Skills'
+                },
+                { 
+                    id: 'mediaQuestion2', 
+                    label: 'Share your ideas on how to effectively promote patient safety initiatives on campus.',
+                    name: 'Marketing Ideas'
+                }
+            ]
+        };
+        
+        // Navigation between pages
+        nextBtn.addEventListener('click', function() {
+            // Validate page 1 fields
+            const page1Fields = page1.querySelectorAll('input[required], select[required]');
+            let valid = true;
+            
+            page1Fields.forEach(field => {
+                if (!field.value) {
+                    valid = false;
+                    field.classList.add('invalid');
+                } else {
+                    field.classList.remove('invalid');
+                }
+            });
+            
+            if (valid) {
+                page1.classList.remove('active');
+                page2.classList.add('active');
+            } else {
+                alert('Please fill out all required fields.');
+            }
+        });
+        
+        backBtn.addEventListener('click', function() {
+            page2.classList.remove('active');
+            page1.classList.add('active');
+        });
+        
+        // Handle department selection and display relevant questions
+        departmentRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const department = this.value;
+                selectedDepartmentHidden.value = department;
+                
+                // Clear existing questions
+                departmentQuestions.innerHTML = '';
+                
+                // Add department-specific questions
+                if (departmentQuestionsData[department]) {
+                    departmentQuestionsData[department].forEach(question => {
+                        const questionHTML = `
+                            <div class="form-group">
+                                <label for="${question.id}">${question.label}</label>
+                                <textarea id="${question.id}" name="${question.name}" required></textarea>
+                            </div>
+                        `;
+                        departmentQuestions.innerHTML += questionHTML;
+                    });
+                }
+            });
+        });
+        
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate page 2 fields
+            const page2Fields = page2.querySelectorAll('input[required]:checked, textarea[required]');
+            let valid = true;
+            let selectedDept = '';
+            
+            // Check if a department is selected
+            const deptSelected = Array.from(departmentRadios).some(radio => {
+                if (radio.checked) {
+                    selectedDept = radio.value;
+                    return true;
+                }
+                return false;
+            });
+            
+            if (!deptSelected) {
+                valid = false;
+                alert('Please select a department.');
+                return;
+            }
+            
+            // Check other required fields
+            page2Fields.forEach(field => {
+                if (!field.value) {
+                    valid = false;
+                    field.classList.add('invalid');
+                } else {
+                    field.classList.remove('invalid');
+                }
+            });
+            
+            if (valid) {
+                // Set confirmed department display
+                confirmedDepartment.textContent = selectedDept;
+                
+                // Update FormSubmit redirect URL to your Netlify domain
+                // Replace this with your actual Netlify domain
+                const netlifyDomain = window.location.origin;
+                form.querySelector('input[name="_next"]').value = netlifyDomain + window.location.pathname + '?submitted=true';
+                
+                // Submit the form
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    // Show confirmation page
+                    page2.classList.remove('active');
+                    confirmationPage.classList.add('active');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting your application. Please try again.');
+                });
+            } else {
+                alert('Please fill out all required fields.');
+            }
+        });
+        
+        // Share buttons functionality
+        document.getElementById('whatsappShareBtn').addEventListener('click', function() {
+            const shareText = encodeURIComponent('Join the Students Voice of Patient Safety! Apply now and make a difference in healthcare: ');
+            const shareUrl = encodeURIComponent(window.location.href);
+            window.open(`https://wa.me/?text=${shareText}${shareUrl}`, '_blank');
+        });
+        
+        document.getElementById('instagramShareBtn').addEventListener('click', function() {
+            alert('Copy this link to share on Instagram: ' + window.location.href);
+        });
+        
+        // Check if the page was loaded after form submission
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('submitted') === 'true') {
+            page1.classList.remove('active');
+            confirmationPage.classList.add('active');
+        }
+    });
+    </script>
 </body>
 </html>
