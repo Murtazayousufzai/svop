@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students Voice of Patient Safety - Recruitment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <header>
+            <h1>Students Voice of Patient Safety</h1>
+            <h2>Join Our Team</h2>
+        </header>
+
+        <form id="recruitmentForm">
+            <!-- Page 1 - Personal Information -->
+            <div class="form-page active" id="page1">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Department">Department</label>
+                    <select id="Department" name="Department" required>
+                        <option value="" disabled selected>Select your Department</option>
+                        <option value="MBBS">MBBS</option>
+                        <option value="BDS">BDS</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="batch">Academic Batch</label>
+                    <input type="text" id="batch" name="batch" placeholder="Enter your batch (e.g., 2022-2026)" required>
+                    <small>You can enter your full batch period or just the starting year</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">WhatsApp Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}" required>
+                    <small>Format: 1234567890 (no spaces or special characters)</small>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+            </div>
+
+            <!-- Page 2 - Department Selection -->
+            <div class="form-page" id="page2">
+                <div class="form-group">
+                    <h3>Why would you like to join the Students Voice of Patient Safety?</h3>
+                    <textarea id="joinReason" name="joinReason" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <h3>Which department would you like to join to help us run the society smoothly and make a real difference in patient safety?</h3>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="department" value="Operations" required>
+                            <span class="radio-custom"></span>
+                            Operations
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="department" value="Research">
+                            <span class="radio-custom"></span>
+                            Research
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="department" value="Academics">
+                            <span class="radio-custom"></span>
+                            Academics
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="department" value="Media & Marketing">
+                            <span class="radio-custom"></span>
+                            Media & Marketing
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Department-specific questions will be dynamically inserted here -->
+                <div id="departmentQuestions"></div>
+
+                <div class="form-navigation">
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </div>
+            </div>
+
+            <!-- Confirmation Page (hidden initially) -->
+            <div class="form-page" id="confirmationPage">
+                <div class="confirmation-message">
+                    <div class="confirmation-icon">✓</div>
+                    <h3>Thank you for your application!</h3>
+                    <p>We appreciate your interest in joining <strong>Students Voice of Patient Safety</strong>.</p>
+                    <p>Your application for the <span id="confirmedDepartment"></span> department has been received.</p>
+                    <div class="confirmation-details">
+                        <p>We'll review your application and contact you soon.</p>
+                        <p>Have a wonderful day!</p>
+                    </div>
+                    
+                    <div class="social-share">
+                        <h4>Share this opportunity with your friends:</h4>
+                        <div class="share-buttons">
+                            <button type="button" id="whatsappShareBtn" class="share-btn whatsapp-btn">
+                                <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                            </button>
+                            <button type="button" id="instagramShareBtn" class="share-btn instagram-btn">
+                                <i class="fab fa-instagram"></i> Share on Instagram
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="confirmation-actions">
+                        <button type="button" onclick="window.location.reload()">Submit Another Application</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
