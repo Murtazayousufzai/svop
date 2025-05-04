@@ -21,6 +21,10 @@
             <input type="hidden" name="_next" value="">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="selectedDepartment" id="selectedDepartmentHidden">
+            <!-- File attachments require FormSubmit Pro subscription -->
+            <input type="hidden" name="_cc" value="murtazayousufzai833@gmail.com">
+            <!-- Add honeypot to prevent spam -->
+            <input type="text" name="_honey" style="display:none">
             
             <!-- Page 1 - Personal Information -->
             <div class="form-page active" id="page1">
@@ -149,56 +153,159 @@
         const selectedDepartmentHidden = document.getElementById('selectedDepartmentHidden');
         const confirmedDepartment = document.getElementById('confirmedDepartment');
         
-        // Department-specific questions
-        const departmentQuestionsData = {
-            'Operations': [
-                { 
-                    id: 'opsQuestion1', 
-                    label: 'What skills do you possess that would make you an asset to the Operations team?',
-                    name: 'Operations Skills'
-                },
-                { 
-                    id: 'opsQuestion2', 
-                    label: 'Describe your experience in organizing events or managing projects.',
-                    name: 'Operations Experience'
-                }
-            ],
-            'Research': [
-                { 
-                    id: 'researchQuestion1', 
-                    label: 'Do you have any prior research experience? If yes, please describe.',
-                    name: 'Research Experience'
-                },
-                { 
-                    id: 'researchQuestion2', 
-                    label: 'What patient safety research topics are you most interested in?',
-                    name: 'Research Interests'
-                }
-            ],
-            'Academics': [
-                { 
-                    id: 'academicsQuestion1', 
-                    label: 'What educational strategies would you propose to enhance awareness of patient safety?',
-                    name: 'Academic Strategies'
-                },
-                { 
-                    id: 'academicsQuestion2', 
-                    label: 'Have you been involved in academic planning or teaching before? Please describe.',
-                    name: 'Academic Experience'
-                }
-            ],
-            'Media & Marketing': [
-                { 
-                    id: 'mediaQuestion1', 
-                    label: 'Do you have experience with graphic design, video editing, or social media management?',
-                    name: 'Media Skills'
-                },
-                { 
-                    id: 'mediaQuestion2', 
-                    label: 'Share your ideas on how to effectively promote patient safety initiatives on campus.',
-                    name: 'Marketing Ideas'
-                }
-            ]
+        // Department-specific questions templates
+        const departmentTemplates = {
+            'Operations': `
+                <div class="department-questions">
+                    <div class="question-group">
+                        <label for="venueChecks">What are the things you check at the venue first?</label>
+                        <textarea id="venueChecks" name="venueChecks" required></textarea>
+                    </div>
+                </div>
+            `,
+            'Research': `
+                <div class="department-questions">
+                    <div class="question-group">
+                        <label for="softwareFamiliarity">What software are you familiar with?</label>
+                        <input type="text" id="softwareFamiliarity" name="softwareFamiliarity" required>
+                    </div>
+                    <div class="question-group">
+                        <label>Any research workshops or courses you've attended?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="workshopsAttended" value="Yes" required>
+                                <span class="radio-custom"></span>
+                                Yes
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="workshopsAttended" value="No">
+                                <span class="radio-custom"></span>
+                                No
+                            </label>
+                        </div>
+                        <div id="certificateUpload" style="display: none; margin-top: 15px;">
+                            <label for="certificate">Upload Certificate</label>
+                            <input type="file" id="certificate" name="certificate">
+                        </div>
+                    </div>
+                    <div class="question-group">
+                        <label>Any publications or in-process articles?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="publications" value="Yes" required>
+                                <span class="radio-custom"></span>
+                                Yes
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="publications" value="No">
+                                <span class="radio-custom"></span>
+                                No
+                            </label>
+                        </div>
+                        <div id="publicationLink" style="display: none; margin-top: 15px;">
+                            <label for="articleLink">Link to publication/article</label>
+                            <input type="text" id="articleLink" name="articleLink">
+                        </div>
+                    </div>
+                </div>
+            `,
+            'Academics': `
+                <div class="department-questions">
+                    <div class="question-group">
+                        <label for="slideDesign">How do you design slides to make complex academic content easy to understand?</label>
+                        <textarea id="slideDesign" name="slideDesign" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="designTools">What design tools or platforms do you use besides PowerPoint, and why?</label>
+                        <textarea id="designTools" name="designTools" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="consistency">How do you ensure consistency and visual appeal across all slides?</label>
+                        <textarea id="consistency" name="consistency" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="multimediaUse">Describe a time you used multimedia (videos, charts, animations) effectively in a presentation.</label>
+                        <textarea id="multimediaUse" name="multimediaUse" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="sessionPreparation">What steps do you take to prepare for hosting an academic session?</label>
+                        <textarea id="sessionPreparation" name="sessionPreparation" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="issueHandling">How do you handle unexpected issues during a live session?</label>
+                        <textarea id="issueHandling" name="issueHandling" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="powerpointFeatures">What PowerPoint features do you use most to enhance your presentations?</label>
+                        <textarea id="powerpointFeatures" name="powerpointFeatures" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="hostingExperience">Share your past hosting experience</label>
+                        <textarea id="hostingExperience" name="hostingExperience" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="presentationSample">Upload a sample of your academic presentation (optional)</label>
+                        <input type="file" id="presentationSample" name="presentationSample">
+                    </div>
+                </div>
+            `,
+            'Media & Marketing': `
+                <div class="department-questions">
+                    <div class="question-group">
+                        <label for="mediaInterest">What makes you interested in the Media and Marketing department?</label>
+                        <textarea id="mediaInterest" name="mediaInterest" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="motivationRating">Rate your motivation to work from 1-10</label>
+                        <textarea id="motivationRating" name="motivationRating" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label>Do you have prior experience in:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="mediaExperience" value="Canva Designing">
+                                <span class="checkbox-custom"></span>
+                                Canva Designing
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="mediaExperience" value="Video Editing">
+                                <span class="checkbox-custom"></span>
+                                Video Editing
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="mediaExperience" value="Social Media Management">
+                                <span class="checkbox-custom"></span>
+                                Social Media Management
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="mediaExperience" value="Videography">
+                                <span class="checkbox-custom"></span>
+                                Videography
+                            </label>
+                        </div>
+                    </div>
+                    <div class="question-group">
+                        <label for="mediaSample">Upload a sample (optional)</label>
+                        <input type="file" id="mediaSample" name="mediaSample">
+                    </div>
+                    <div class="question-group">
+                        <label for="otherOrganizations">List down any other organisations you've served in the media/marketing department for or are currently a part of.</label>
+                        <textarea id="otherOrganizations" name="otherOrganizations" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="attendEvents">Will you be able to attend most if not all of our events and workshops?</label>
+                        <textarea id="attendEvents" name="attendEvents" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="attendConferences">Will you be able to attend conferences outside of university?</label>
+                        <textarea id="attendConferences" name="attendConferences" required></textarea>
+                    </div>
+                    <div class="question-group">
+                        <label for="cameraFamiliarity">Are you familiar with mobile cameras? (preferably a good camera iPhone)</label>
+                        <textarea id="cameraFamiliarity" name="cameraFamiliarity" required></textarea>
+                    </div>
+                </div>
+            `
         };
         
         // Navigation between pages
@@ -238,17 +345,40 @@
                 // Clear existing questions
                 departmentQuestions.innerHTML = '';
                 
-                // Add department-specific questions
-                if (departmentQuestionsData[department]) {
-                    departmentQuestionsData[department].forEach(question => {
-                        const questionHTML = `
-                            <div class="form-group">
-                                <label for="${question.id}">${question.label}</label>
-                                <textarea id="${question.id}" name="${question.name}" required></textarea>
-                            </div>
-                        `;
-                        departmentQuestions.innerHTML += questionHTML;
-                    });
+                // Add department-specific questions from templates
+                if (departmentTemplates[department]) {
+                    departmentQuestions.innerHTML = departmentTemplates[department];
+                    
+                    // Set up conditional display for research department options
+                    if (department === 'Research') {
+                        // Handle workshops attended radio buttons
+                        const workshopsRadios = document.querySelectorAll('input[name="workshopsAttended"]');
+                        const certificateUpload = document.getElementById('certificateUpload');
+                        
+                        workshopsRadios.forEach(radio => {
+                            radio.addEventListener('change', function() {
+                                if (this.value === 'Yes') {
+                                    certificateUpload.style.display = 'block';
+                                } else {
+                                    certificateUpload.style.display = 'none';
+                                }
+                            });
+                        });
+                        
+                        // Handle publications radio buttons
+                        const publicationsRadios = document.querySelectorAll('input[name="publications"]');
+                        const publicationLink = document.getElementById('publicationLink');
+                        
+                        publicationsRadios.forEach(radio => {
+                            radio.addEventListener('change', function() {
+                                if (this.value === 'Yes') {
+                                    publicationLink.style.display = 'block';
+                                } else {
+                                    publicationLink.style.display = 'none';
+                                }
+                            });
+                        });
+                    }
                 }
             });
         });

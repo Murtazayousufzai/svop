@@ -180,6 +180,83 @@ small {
     color: var(--secondary-color);
 }
 
+/* Checkbox styling */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+}
+
+.checkbox-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.checkbox-option:hover {
+    background-color: #f9f9f9;
+}
+
+.checkbox-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-custom {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.checkbox-option input[type="checkbox"]:checked + .checkbox-custom::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.checkbox-option input[type="checkbox"]:checked + .checkbox-custom {
+    border-color: var(--secondary-color);
+}
+
+/* Department questions specific styling */
+.department-questions {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.question-group {
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    padding: 10px 0;
+    width: 100%;
+}
+
 /* Navigation Buttons */
 .form-navigation {
     display: flex;
